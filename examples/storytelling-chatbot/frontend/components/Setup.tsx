@@ -77,10 +77,10 @@ const Setup: React.FC<SetupProps> = ({ handleStart }) => {
         <span className="bg-gray-800/70 px-3 py-1 rounded-md">
           Created by{" "}
           <a
-            href="https://gf.fiit.ai"
+            href="https://her.fiit.ai"
             className="text-violet-300 underline decoration-violet-400 hover:text-violet-100"
           >
-            gf.fiit.ai
+            her.fiit.ai
           </a>
         </span>
       </footer>
