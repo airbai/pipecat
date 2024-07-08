@@ -33,7 +33,7 @@ const Setup: React.FC<SetupProps> = ({ handleStart }) => {
           {state === "intro" ? (
             <>
               <p className="text-gray-600 leading-relaxed text-pretty">
-                This features a voice-controlled AI sweetheart who charms you from the very start. She begins by asking what kind of girlfriend you'd love to talk to (e.g., age, nationality, MBTI, looks, hair. etc). After each scene, your sweet AI will pause and eagerly wait for your input. Let your imagination run wild and direct the story any way you choose, with her lovingly guiding you along the way!
+                This features a voice-controlled AI sweetheart who charms you from the very start. She begins by asking what kind of girlfriend you&apos;d love to talk to (e.g., age, nationality, MBTI, looks, hair. etc). After each scene, your sweet AI will pause and eagerly wait for your input. Let your imagination run wild and direct the story any way you choose, with her lovingly guiding you along the way!
               </p>
               <p className="flex flex-row gap-2 text-gray-600 font-medium">
                 <IconEar size={24} /> For best results, try in a quiet environment!
@@ -42,7 +42,7 @@ const Setup: React.FC<SetupProps> = ({ handleStart }) => {
           ) : (
             <>
               <p className="text-gray-600 leading-relaxed text-pretty">
-                Since you'll be talking to Storybot, we need to make sure it can hear you! Please configure your microphone and speakers below.
+                Since you&apos;ll be talking to Storybot, we need to make sure it can hear you! Please configure your microphone and speakers below.
               </p>
               <DevicePicker />
             </>
