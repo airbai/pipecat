@@ -45,14 +45,14 @@ export const AudioIndicator: React.FC = () => {
 export const AudioIndicatorBar: React.FC = () => {
   const localSessionId = useLocalSessionId();
   const audioTrack = useAudioTrack(localSessionId);
-
   const volRef = useRef<HTMLDivElement>(null);
 
   useAudioLevel(
     audioTrack?.persistentTrack,
     useCallback((volume) => {
-      if (volRef.current)
+      if (volRef.current) {
         volRef.current.style.width = Math.max(2, volume * 100) + "%";
+      }
     }, [])
   );
 

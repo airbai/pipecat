@@ -72,7 +72,6 @@ export default function DevicePicker({}: Props) {
                     No microphone access.
                   </option>
                 )}
-
                 {microphones.map((m) => (
                   <SelectItem key={m.device.deviceId} value={m.device.deviceId}>
                     {m.device.label}
