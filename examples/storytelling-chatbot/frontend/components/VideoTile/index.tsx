@@ -12,7 +12,7 @@ interface Props {
 const VideoTile = ({ sessionId, inactive }: Props) => {
   return (
     <div className={`${styles.container} ${inactive ? styles.inactive : ""} `}>
-      <ChatTranscript />
+      <ChatTranscript active={true}/>
 
       <div className={styles.videoTile}>
         <DailyVideo
