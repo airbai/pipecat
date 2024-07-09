@@ -32,17 +32,6 @@ export default function UserInputIndicator({ active }: Props) {
 
   return (
     <div className={`${styles.panel} ${active ? styles.active : ""}`}>
-      <div className="relative z-20 flex flex-col">
-        <div
-          className={`${styles.micIcon} ${active ? styles.micIconActive : ""}`}
-        >
-          <IconMicrophone size={42} />
-          {active && <AudioIndicator />}
-        </div>
-        <footer className={styles.transcript}>
-          <TypewriterEffect words={transcription} />
-        </footer>
-      </div>
       <div className={styles.waveformContainer}>
         <AudioWaveform active={active} />
       </div>

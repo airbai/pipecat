@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 
 interface AudioWaveformProps {
   active: boolean;
+  minHeight?: number;
 }
 
-const AudioWaveform: React.FC<AudioWaveformProps> = ({ active }) => {
+const AudioWaveform: React.FC<AudioWaveformProps> = ({ active, minHeight = 15 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
   const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
   const animationRef = useRef<number>();
@@ -21,7 +23,6 @@ const AudioWaveform: React.FC<AudioWaveformProps> = ({ active }) => {
         const analyserNode = context.createAnalyser();
         analyserNode.fftSize = 256;
         source.connect(analyserNode);
-
         setAudioContext(context);
         setAnalyser(analyserNode);
       } catch (error) {
@@ -43,55 +44,57 @@ const AudioWaveform: React.FC<AudioWaveformProps> = ({ active }) => {
     };
   }, [active]);
 
+  const setCanvasSize = () => {
+    if (canvasRef.current && containerRef.current) {
+      const { width } = containerRef.current.getBoundingClientRect();
+      canvasRef.current.width = width;
+      canvasRef.current.height = 100; // You can adjust this or make it dynamic as well
+    }
+  };
+
+  useEffect(() => {
+    setCanvasSize();
+    window.addEventListener('resize', setCanvasSize);
+    return () => window.removeEventListener('resize', setCanvasSize);
+  }, []);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas || !analyser) return;
-
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const width = canvas.width;
-    const height = canvas.height;
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
-
     const drawWaveform = () => {
       animationRef.current = requestAnimationFrame(drawWaveform);
-
       analyser.getByteFrequencyData(dataArray);
 
-      ctx.fillStyle = 'rgb(0, 0, 0)';
-      ctx.fillRect(0, 0, width, height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const barWidth = (width / bufferLength) * 2.5;
+      const barWidth = canvas.width / bufferLength / 2; // Adjust this line
       let x = 0;
 
       for (let i = 0; i < bufferLength; i++) {
-        const barHeight = (dataArray[i] / 255) * height;
+        const barHeight = Math.max(minHeight, (dataArray[i] / 255) * canvas.height);
 
-        // 使用 bg-green-500 的基础颜色，稍微调整亮度
-        const brightness = 0.7 + (barHeight / height) * 0.3; // 0.7 到 1 之间变化
+        const brightness = 0.7 + (barHeight / canvas.height) * 0.3;
         const r = Math.floor(16 * brightness);
         const g = Math.floor(185 * brightness);
         const b = Math.floor(129 * brightness);
-        
-        ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
-        
-        // 绘制矩形
-        ctx.fillRect(x, height - barHeight, barWidth - 1, barHeight);
-        
-        // 添加边框
-        ctx.strokeStyle = 'rgba(24, 187, 84, 0.5)';
-        ctx.strokeRect(x, height - barHeight, barWidth - 1, barHeight);
 
-        x += barWidth;
+        ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+        ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+
+        x += barWidth * 2; // Adjust this line
       }
     };
+
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
 
     if (active) {
       drawWaveform();
     } else {
-      ctx.clearRect(0, 0, width, height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
@@ -102,9 +105,13 @@ const AudioWaveform: React.FC<AudioWaveformProps> = ({ active }) => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [active, analyser]);
+  }, [active, analyser, minHeight]);
 
-  return <canvas ref={canvasRef} width={400} height={50} className="w-full" />;
+  return (
+    <div ref={containerRef} style={{ width: '100%' }}>
+      <canvas ref={canvasRef} />
+    </div>
+  );
 };
 
 export default AudioWaveform;
