@@ -1,4 +1,4 @@
-.container{
+/*.container{
     position: absolute;
     color:white;
     z-index: 50;    
@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: end;
     text-align: center;
-}
+}*/
 
 .transcript{
     @apply font-semibold;
@@ -22,8 +22,8 @@
 
 .sentence{
     opacity: 1;
-    animation: fadeOut 2.5s linear forwards;
-    animation-delay: 1s;
+    /*animation: fadeOut 2.5s linear forwards;
+    animation-delay: 1s;*/
 }
 @keyframes fadeOut {
     0% {
@@ -40,3 +40,28 @@
         opacity: 0;
     }
 }
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .message {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    word-wrap: break-word;
+  }
+  
+  .userMessage {
+    align-self: flex-end;
+    background-color: #e1ffc7;
+  }
+  
+  .llmMessage {
+    align-self: flex-start;
+    background-color: #f0f0f0;
+  }
+  

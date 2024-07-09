@@ -1,0 +1,40 @@
+.panel {
+    /* 保留原有的面板样式 */
+  }
+  
+  .active {
+    /* 保留原有的激活样式 */
+  }
+  
+  .micIcon {
+    /* 保留原有的麦克风图标样式 */
+  }
+  
+  .micIconActive {
+    /* 保留原有的激活麦克风图标样式 */
+  }
+  .chatContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.message {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    word-wrap: break-word;
+}
+
+.llmMessage {
+    align-self: flex-end;
+    background-color: #e1ffc7;
+}
+
+.userMessage {
+    align-self: flex-start;
+    background-color: #f0f0f0;
+}

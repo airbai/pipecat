@@ -80,3 +80,21 @@
 .active .transcript{
     opacity: 1;
 }
+.panel {
+    /* 保留原有样式 */
+    position: relative;
+    overflow: hidden;
+}
+
+/* 其他原有样式保持不变 */
+
+.waveformContainer {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 70px;
+    width: 75%;
+    /*background-color: rgba(0, 0, 0, 0.5);*/
+    z-index: 30;
+}

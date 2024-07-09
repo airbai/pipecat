@@ -20,7 +20,7 @@ const mono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Storytelling Chatbot - Fiit AI",
+  title: "her build by Fiit AI",
   description: "Built with fiit.ai",
   metadataBase: new URL(process.env.SITE_URL || "http://localhost:3000"),
 };

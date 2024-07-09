@@ -1,37 +1,45 @@
 "use client";
-
 import React, { useEffect, useRef, useState } from "react";
 import { useAppMessage } from "@daily-co/daily-react";
 import { DailyEventObjectAppMessage } from "@daily-co/daily-js";
-
 import styles from "./StoryTranscript.module.css";
+
+interface Message {
+  text: string;
+  isUser: boolean;
+}
 
 export default function StoryTranscript() {
   const [partialText, setPartialText] = useState<string>("");
-  const [sentences, setSentences] = useState<string[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const intervalRef = useRef<any | null>(null);
-
+/*
   useEffect(() => {
     clearInterval(intervalRef.current);
-
     intervalRef.current = setInterval(() => {
-      if (sentences.length > 2) {
-        setSentences((s) => s.slice(1));
+      if (messages.length > 10) {
+        setMessages((m) => m.slice(1));
       }
-    }, 2500);
-
+    }, 5000);
     return () => clearInterval(intervalRef.current);
-  }, [sentences]);
+  }, [messages]);*/
 
   useAppMessage({
     onAppMessage: (e: DailyEventObjectAppMessage<any>) => {
       if (e.fromId && e.fromId === "transcription") {
-        // Check for LLM transcripts only
         if (e.data.user_id !== "") {
+          // User message
           setPartialText(e.data.text);
           if (e.data.is_final) {
             setPartialText("");
-            setSentences((s) => [...s, e.data.text]);
+            setMessages((m) => [...m, { text: e.data.text, isUser: true }]);
+          }
+        } else {
+          // LLM message
+          setPartialText(e.data.text);
+          if (e.data.is_final) {
+            setPartialText("");
+            setMessages((m) => [...m, { text: e.data.text, isUser: false }]);
           }
         }
       }
@@ -40,15 +48,24 @@ export default function StoryTranscript() {
 
   return (
     <div className={styles.container}>
-      {sentences.map((sentence, index) => (
-        <p key={index} className={`${styles.transcript} ${styles.sentence}`}>
-          <span>{sentence}</span>
-        </p>
+      {messages.map((message, index) => (
+        <div
+          key={index}
+          className={`${styles.message} ${
+            message.isUser ? styles.userMessage : styles.llmMessage
+          }`}
+        >
+          <span>{message.text}</span>
+        </div>
       ))}
       {partialText && (
-        <p className={`${styles.transcript}`}>
+        <div
+          className={`${styles.message} ${
+            messages.length % 2 === 0 ? styles.userMessage : styles.userMessage
+          }`}
+        >
           <span>{partialText}</span>
-        </p>
+        </div>
       )}
     </div>
   );

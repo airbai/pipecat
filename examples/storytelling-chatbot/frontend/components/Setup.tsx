@@ -21,28 +21,25 @@ const Setup: React.FC<SetupProps> = ({ handleStart }) => {
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center bg-black">
       <div className="text-center text-white mb-8">
-        <h1 className="text-5xl font-bold text-pink-500">Her</h1>
-        <p className="text-lg">An voice interactive AI experience</p>
+        <h1 className="text-5xl font-bold text-pink-500">her</h1>
+        <p className="text-lg">a voice interactive AI experience</p>
       </div>
-      <div className="bg-white rounded-3xl cardAnim cardShadow p-9 max-w-screen-sm mx-auto outline outline-[5px] outline-gray-600/10">
+      <div className="rounded-3xl cardAnim cardShadow p-9 max-w-screen-sm mx-auto outline outline-[5px] outline-gray-600/10">
         <div className="flex flex-col gap-6">
           <h1 className="text-4xl font-bold text-pretty tracking-tighter mb-4">
-            Talk to <span className="text-sky-500">Me</span>
+            <span className="text-sky-500">tell how your ideal girlfriend would be like (age, nationality, MBTI, appearance, hair, etc.).</span>
           </h1>
 
           {state === "intro" ? (
             <>
               <p className="text-gray-600 leading-relaxed text-pretty">
-                This features a voice-controlled AI sweetheart who charms you from the very start. She begins by asking what kind of girlfriend you&apos;d love to talk to (e.g., age, nationality, MBTI, looks, hair. etc). After each scene, your sweet AI will pause and eagerly wait for your input. Let your imagination run wild and direct the story any way you choose, with her lovingly guiding you along the way!
-              </p>
-              <p className="flex flex-row gap-2 text-gray-600 font-medium">
-                <IconEar size={24} /> For best results, try in a quiet environment!
+              allowing your imagination to shape her story with you <br/>
               </p>
             </>
           ) : (
             <>
               <p className="text-gray-600 leading-relaxed text-pretty">
-                Since you&apos;ll be talking to Storybot, we need to make sure it can hear you! Please configure your microphone and speakers below.
+                since you&apos;ll be talking to this AI her, we need to make sure she can hear you! please configure your microphone and speakers below.
               </p>
               <DevicePicker />
             </>
@@ -75,7 +72,7 @@ const Setup: React.FC<SetupProps> = ({ handleStart }) => {
       </div>
       <footer className="text-center font-mono text-sm text-gray-100 py-6">
         <span className="bg-gray-800/70 px-3 py-1 rounded-md">
-          Created by{" "}
+          created by{" "}
           <a
             href="https://her.fiit.ai"
             className="text-violet-300 underline decoration-violet-400 hover:text-violet-100"

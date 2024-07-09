@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-
 import { useAppMessage } from "@daily-co/daily-react";
 import { DailyEventObjectAppMessage } from "@daily-co/daily-js";
 import styles from "./UserInputIndicator.module.css";
 import { IconMicrophone } from "@tabler/icons-react";
 import { TypewriterEffect } from "../ui/typewriter";
-import AudioIndicator from "../AudioIndicator";
+import AudioIndicator from "@/components/AudioIndicator";
+import AudioWaveform from "@/components/AudioWaveform";
 
 interface Props {
   active: boolean;
@@ -42,6 +42,9 @@ export default function UserInputIndicator({ active }: Props) {
         <footer className={styles.transcript}>
           <TypewriterEffect words={transcription} />
         </footer>
+      </div>
+      <div className={styles.waveformContainer}>
+        <AudioWaveform active={active} />
       </div>
     </div>
   );
