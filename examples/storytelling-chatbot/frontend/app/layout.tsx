@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Space_Mono } from "next/font/google";
 
 import { cn } from "@/app/utils";
-
+import { Analytics } from "@vercel/analytics/react"
 // Font
 const sans = Space_Grotesk({
   subsets: ["latin"],
@@ -40,6 +40,7 @@ export default function RootLayout({
         )}
       >
         <main className="flex flex-1">{children}</main>
+        <Analytics />
       </body>
     </html>
   );
